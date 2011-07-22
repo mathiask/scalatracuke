@@ -1,6 +1,7 @@
 import sbt._
+import templemore.sbt.CucumberProject
 
-class Project(info: ProjectInfo) extends DefaultWebProject(info) {
+class Project(info: ProjectInfo) extends DefaultWebProject(info) with CucumberProject {
   val scalatraVersion = "2.0.0-SNAPSHOT"
   val scalatra = "org.scalatra" %% "scalatra" % scalatraVersion
   val scalatratest = "org.scalatra" %% "scalatra-scalatest" % scalatraVersion % "test"
