@@ -7,7 +7,7 @@ import org.eclipse.jetty.testing.ServletTester
 class CucumberSteps extends ScalaDsl with EN with ScalatraTests with ShouldMatchers {
 
   lazy val tester = new ServletTester
-  var url: String = _
+  var lastBody: String = _
 
 
   Before { 
@@ -18,15 +18,15 @@ class CucumberSteps extends ScalaDsl with EN with ScalatraTests with ShouldMatch
 
   After{ stop() }
 
-  Given("""^a running server$""") { url = "unknown" }
+  Given("""^a running server$""") {}
 
   When("""^I go to "/start"$""") {
-    url = "/start"
+    get("/start"){
+      lastBody = body
+    }
   }
 
   Then("""^I should see "Hello Cucumber"$""") {
-    get(url) { 
-      body should include ("Hello Cucumber")
-    }
+    lastBody should include ("Hello Cucumber")
   }
 }
